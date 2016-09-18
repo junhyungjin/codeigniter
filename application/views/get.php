@@ -1,1 +1,1 @@
-토픽 with head and footer <?=$id?>
+토픽 <?=$id?>
