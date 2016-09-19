@@ -4,7 +4,7 @@ class Topic_model extends CI_Model {
     parent::__construct();
   }
 
-  public function gets(){
+  function gets(){
     return $this->db->query('SELECT * FROM topic')->result();
   }
 
@@ -12,5 +12,4 @@ class Topic_model extends CI_Model {
     return $this->db->get_where('topic', array('id'=>$topic_id))->row();
   }
 }
-
 ?>
