@@ -25,6 +25,10 @@ class Topic extends CI_Controller {
 
 	function add(){
 		$this->_head();
+		echo $this->input->post('title');
+		echo ",";
+		echo $this->input->post('description');
+		
 		$this->load->view('add');
 		$this->load->view('footer');
 	}
