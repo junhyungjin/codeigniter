@@ -52,3 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['topic/(:num)'] = "topic/get/$1";
+$route['post/(:num)'] = "topic/get/$1";
+$route['topic/([a-z]+)/([a-z]+)/(\d+)'] = "$1/$2/$3";
