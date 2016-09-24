@@ -25,11 +25,19 @@ class Topic extends CI_Controller {
 
 	function add(){
 		$this->_head();
-		echo $this->input->post('title');
-		echo ",";
-		echo $this->input->post('description');
-		
-		$this->load->view('add');
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('title', '제목', 'required');
+		$this->form_validation->set_rules('description', '본문', 'required');
+
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->load->view('add');
+		}
+		else
+		{
+			echo "Success";
+		}
+
 		$this->load->view('footer');
 	}
 

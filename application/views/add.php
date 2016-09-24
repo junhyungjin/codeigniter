@@ -1,8 +1,6 @@
-<form action="/index.php/topic/add" method="POST">
-  제목 : <input type="text" name="title"/>
-  본문 :
-  <textarea name="description">
-  </textarea>
-  <input type="submit"/>
-
+<form action="/index.php/topic/add" method="POST" class="col-md-10">
+  <?php echo validation_errors(); ?>
+  <input type="text" name="title" placeholder="제목" class="col-md-12"/>
+  <textarea name="description" placeholder="본문" class="col-md-12" rows="15"></textarea>
+  <input class="btn" type="submit"/>
 </form>
