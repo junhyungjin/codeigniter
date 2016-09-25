@@ -7,6 +7,7 @@ class Topic extends CI_Controller {
 
 		$this->load->database();
 		$this->load->model('topic_model');
+		log_message('debug', 'topic초기화');
 	}
 
 	public function index(){
@@ -16,10 +17,19 @@ class Topic extends CI_Controller {
 	}
 
 	function get($id){
+		log_message('debug','get 호출');
 		$this->_head();
 		$topic = $this->topic_model->get($id);
+		log_message('info', var_export($topic,1));
+
+		if(empty($topic)){
+			log_message('error', 'topic의 값이 없습니다');
+			show_error('topic의 값이 없습니다');
+		}
 		$this->load->helper(array('url', 'HTML', 'korean'));
+		log_message('debug', 'get view 로딩');
 		$this->load->view('get',array('topic'=>$topic));
+		log_message('debug','footer view 로딩');
 		$this->load->view('footer');
 	}
 
@@ -35,7 +45,10 @@ class Topic extends CI_Controller {
 		}
 		else
 		{
-			echo "Success";
+			$topic_id = $this->topic_model->add($this->input->post('title'), $this->input->post('description'));
+			$this->load->helper('url');
+			redirect('/topic/get/'.$topic_id);
+
 		}
 
 		$this->load->view('footer');
