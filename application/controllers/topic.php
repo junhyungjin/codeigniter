@@ -54,6 +54,65 @@ class Topic extends CI_Controller {
 		$this->load->view('footer');
 	}
 
+	function upload_receive(){
+		$config['upload_path'] = './static/user';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size'] = '100';
+		$config['max_width'] = '1024';
+		$config['max_height'] = '768';
+		$this->load->library('upload', $config);
+
+		if ( ! $this->upload->do_upload("user_upload_file"))
+		{
+			$error = array('error' => $this->upload->display_errors());
+
+			echo $this->upload->display_errors();
+		}
+		else
+		{
+			$data = array('upload_data' => $this->upload->data());
+			echo "File upload success";
+			var_dump($data);
+		}
+
+	}
+
+	function upload_receive_from_ck(){
+		$config['upload_path'] = './static/user';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size'] = '100';
+		$config['max_width'] = '1024';
+		$config['max_height'] = '768';
+		$this->load->library('upload', $config);
+
+		if ( ! $this->upload->do_upload("upload"))
+		{
+			$error = array('error' => $this->upload->display_errors());
+
+			echo $this->upload->display_errors();
+		}
+		else
+		{
+
+			$CKEditorFuncNum = $this->input->get('CKEditorFuncNum');
+
+			$data = $this->upload->data();
+			$filename = $data['file_name'];
+
+			$url = '/static/user/'.$filename;
+
+			echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction('".$CKEditorFuncNum."','".$url."','Transfer succeed')</script>";
+
+		}
+
+	}
+
+	function upload_form(){
+		$this->_head();
+		$this->load->view('upload_form');
+		$this->load->view('footer');
+	}
+
 	function _head(){
 		$this->load->view('head');
 		$topics = $this->topic_model->gets();
