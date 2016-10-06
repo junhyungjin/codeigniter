@@ -34,6 +34,15 @@ class Topic extends CI_Controller {
 	}
 
 	function add(){
+
+		// login
+		// if didn't login, redirect to login page_missing
+		// if login, go through
+		if (true){
+			$this->load->helper('url');
+			redirect('/auth/login');
+		}
+
 		$this->_head();
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('title', '제목', 'required');
@@ -114,6 +123,9 @@ class Topic extends CI_Controller {
 	}
 
 	function _head(){
+		var_dump($this->session->userdata('session_test'));
+		$this->session->set_userdata('session_test','hjjun');
+
 		$this->load->view('head');
 		$topics = $this->topic_model->gets();
 		$this->load->view('topic_list', array('topics'=>$topics));
